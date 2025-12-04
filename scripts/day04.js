@@ -15,8 +15,48 @@ function getAllMoveableRolls(array, allowedNeighbors, charToCount) {
   return totalMoveable;
 }
 
+function clearUpMoveableRolls(array, allowedNeighbors, charToCount) {
+  let clonedArray = array.map(x => x);
+  let moved = 0;
+  let stillPossible = getAllMoveableRolls(clonedArray, 4, "@");
+
+  while (stillPossible > 0) {
+    let newArray = [];
+    stillPossible = getAllMoveableRolls(clonedArray, 4, "@");;
+    
+    for (let posY in clonedArray) {
+      const rowMoveableRolls = returnRowMoveableRolls(clonedArray, posY, allowedNeighbors, charToCount);
+      let newRow = clonedArray[posY].split("");
+      if (rowMoveableRolls.length > 0) {
+        for (let posX in rowMoveableRolls) {
+          newRow[rowMoveableRolls[posX]] = ".";
+          moved++;
+        }
+      }
+      newArray.push(newRow.join(""));
+    }
+    clonedArray = newArray;
+  }
+  return moved;
+}
+
+function returnRowMoveableRolls(array, posY, allowedNeighbors, charToCount) {
+  let moveableRolls = [];
+
+  for (let posX in array[posY]) {
+    if (!isSpaceOccupied(array, Number(posY), Number(posX))) {
+      continue;
+    }
+    if (canRollBeMoved(array, Number(posY), Number(posX), Number(allowedNeighbors), charToCount)) {
+      moveableRolls.push(Number(posX));
+    }
+  }
+  return moveableRolls;
+}
+
 function checkRowForMoveableRolls(array, posY, allowedNeighbors, charToCount) {
   let moveableRolls = 0;
+
   for (let posX in array[posY]) {
     if (!isSpaceOccupied(array, Number(posY), Number(posX))) {
       continue;
@@ -86,3 +126,4 @@ function countCharInString (string, char) {
 }
 
 console.log("Answer to Part 1 is:", getAllMoveableRolls(inputArray, 4, "@"))
+console.log("Answer to Part 2 is:", clearUpMoveableRolls(inputArray, 4, "@"))
