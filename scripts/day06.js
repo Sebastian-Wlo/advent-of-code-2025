@@ -15,6 +15,7 @@ if (inputArray[inputArray.length - 1] === "") {
 function getSumOfAllEquations(array) {
   const equationsArray = getEquationsArray(array);
   let sum = 0;
+  
   for (let equation in equationsArray) {
     const equationOutcome = getEquationOutcome(equationsArray[equation]);
     sum += equationOutcome;
@@ -26,6 +27,7 @@ function getSumOfAllEquations(array) {
 function getSumOfAllCelaphodEquations(array) {
   const equationsArray = getCelaphodEquations(array);
   let sum = 0;
+  
   for (let equation in equationsArray) {
     const equationOutcome = getEquationOutcome(equationsArray[equation]);
     sum += equationOutcome;
@@ -37,6 +39,7 @@ function getSumOfAllCelaphodEquations(array) {
 function getEquationOutcome(equationObject) {
   if (equationObject.operatorSymbol === "*") {
     let outcome = 1;
+    
     for (let number in equationObject.equationNumbers) {
       outcome *= Number(equationObject.equationNumbers[number]);
     }
@@ -45,6 +48,7 @@ function getEquationOutcome(equationObject) {
   }
   if (equationObject.operatorSymbol === "+") {
     let outcome = 0;
+    
     for (let number in equationObject.equationNumbers) {
       outcome += Number(equationObject.equationNumbers[number]);
     }
@@ -59,6 +63,7 @@ function getCelaphodEquations(array) {
 
   for (let colNum = 0; colNum < columnWidths.length; colNum++) {
     const capturedNumbers = Array(columnWidths[colNum]["width"]).fill("");
+    
     for (let rowNum = 0; rowNum < array.length; rowNum++) {
       const capturedEquation = {};
 
@@ -107,6 +112,7 @@ function getEquationsArray(array) {
   for (let colNum = 0; colNum < splitArray[0].length; colNum++) {
     const equationNumbers = [];
     let operatorSymbol = "";
+    
     for (let rowNum = 0; rowNum < splitArray.length; rowNum++) {
       if (/[\*\+]/.test(splitArray[rowNum][colNum])) {
         operatorSymbol = splitArray[rowNum][colNum];
@@ -116,6 +122,7 @@ function getEquationsArray(array) {
     }
     equationsArray.push({ equationNumbers, operatorSymbol });
   }
+  
   return equationsArray;
 }
 
