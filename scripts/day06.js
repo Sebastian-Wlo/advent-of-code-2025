@@ -6,7 +6,7 @@ const inputData = fs.readFileSync("./inputs/day06.txt", {
 });
 const inputArray = inputData.split("\n");
 
-// Added after everytinh else... forgot to add the empty line for the "sample" input,
+// Added after everyting else... forgot to add the empty line for the "sample" input,
 // And didn't feel like rewriting the rest to make the part 2 work
 if (inputArray[inputArray.length - 1] === "") {
   inputArray.pop();
